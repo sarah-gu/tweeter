@@ -1,0 +1,76 @@
+# ──────────────────────────────────────────────
+# Finance query groups for X Recent Search
+# Each group becomes a section in the newsletter.
+# ──────────────────────────────────────────────
+
+groups:
+  # ── Market-moving company news ──────────────
+  market_news:
+    label: "Market-Moving News"
+    keywords:
+      - earnings
+      - guidance
+      - beats
+      - misses
+      - upgrade
+      - downgrade
+      - initiates
+      - price target
+      - raises
+      - cuts
+      - SEC
+      - DOJ
+      - antitrust
+      - merger
+      - acquisition
+      - buyback
+      - dividend
+      - offering
+      - bankruptcy
+    filters: "lang:en -is:retweet"
+
+  # ── Finance firm big moves ──────────────────
+  firm_moves:
+    label: "Finance Firm Moves"
+    firms_file: "config/finance_firms.txt"
+    keywords:
+      - stake
+      - acquires
+      - raises
+      - launches
+      - files
+      - settles
+      - invests
+      - buyout
+      - ETF
+      - fund
+      - IPO
+    filters: "lang:en -is:retweet"
+
+  # ── Macro / rates / FX ─────────────────────
+  macro_fx:
+    label: "Macro / Rates / FX"
+    keywords:
+      - Fed
+      - FOMC
+      - CPI
+      - PCE
+      - NFP
+      - ISM
+      - Treasury
+      - 2-year
+      - 10-year
+      - curve
+      - hikes
+      - dot plot
+      - DXY
+      - USDJPY
+      - EURUSD
+      - GBPUSD
+    filters: "lang:en -is:retweet"
+
+  # ── Curated accounts (high-signal) ──────────
+  curated_accounts:
+    label: "Curated Accounts"
+    accounts_file: "config/curated_accounts.txt"
+    filters: "lang:en -is:retweet"

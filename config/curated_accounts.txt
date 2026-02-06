@@ -1,0 +1,15 @@
+# One X handle per line (no @). These accounts are queried directly.
+DeItaone
+unusual_whales
+zabormetrics
+LiveSquawk
+FirstSquawk
+Fxhedgers
+disclosetv
+markets
+business
+ReutersBiz
+WSJ
+FT
+Bloomberg
+CNBCnow

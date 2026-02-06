@@ -1,0 +1,26 @@
+# One firm name per line. Used for firm-moves queries and story clustering.
+JPMorgan
+Goldman Sachs
+Morgan Stanley
+BlackRock
+Vanguard
+Citadel
+Jane Street
+KKR
+Apollo
+Blackstone
+Bridgewater
+Two Sigma
+DE Shaw
+Millennium
+Point72
+Pershing Square
+Elliott Management
+Sequoia
+Andreessen Horowitz
+Tiger Global
+CME
+Nasdaq
+NYSE
+ICE
+CBOE
