@@ -22,7 +22,6 @@ env/
 
 # Data / state
 var/
-out/
 
 # OS
 .DS_Store
