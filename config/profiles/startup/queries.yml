@@ -4,70 +4,94 @@
 # ──────────────────────────────────────────────
 
 groups:
-  # ── AI models & research ────────────────────
-  ai_models:
-    label: "AI Models & Research"
-    keywords:
-      - GPT
-      - Claude
-      - Gemini
-      - Llama
-      - open source model
-      - foundation model
-      - fine-tuning
-      - RLHF
-      - transformer
-      - diffusion
-      - multimodal
-      - benchmark
-      - SOTA
-      - AGI
-    filters: "lang:en -is:retweet"
+  curated_accounts:
+    label: "High-Signal Voices"
+    accounts_file: "curated_accounts.txt"
+    filters: "lang:en -is:retweet -is:reply"
 
-  # ── AI startup funding & launches ───────────
-  ai_funding:
-    label: "AI Startup Funding & Launches"
+  ai_announcements:
+    label: "AI Announcements"
     firms_file: "startup_firms.txt"
     keywords:
-      - raises
-      - seed round
-      - Series A
-      - Series B
-      - Series C
-      - funding
-      - valuation
-      - unicorn
-      - acquires
-      - acquisition
-      - launch
-      - launches
-      - YC
-      - demo day
-      - pivot
-    filters: "lang:en -is:retweet"
+      - "new model"
+      - "model release"
+      - "API update"
+      - "open sourced"
+      - "weights released"
+      - "pricing"
+      - "benchmark"
+      - "context window"
+    filters: "lang:en -is:retweet -is:reply"
 
-  # ── AI infra & tools ───────────────────────
-  ai_infra:
-    label: "AI Infra & Developer Tools"
+  ai_tools_infra:
+    label: "AI Tools & Infra"
+    firms_file: "startup_firms.txt"
     keywords:
-      - GPU
-      - inference
-      - training cluster
-      - vector database
       - RAG
       - embeddings
-      - AI agent
-      - AI agents
-      - LLM ops
+      - "vector database"
+      - LLMOps
       - MLOps
-      - CUDA
-      - TPU
-      - H100
-      - B200
-    filters: "lang:en -is:retweet"
+      - "tool calling"
+      - agents
+      - inference
+      - latency
+    filters: "lang:en -is:retweet -is:reply"
 
-  # ── Curated accounts (high-signal) ──────────
-  curated_accounts:
-    label: "Curated Accounts"
-    accounts_file: "curated_accounts.txt"
-    filters: "lang:en -is:retweet"
+  funding_market:
+    label: "Funding & Market"
+    keywords:
+      - raised
+      - raises
+      - "seed round"
+      - "pre-seed"
+      - "Series A"
+      - "Series B"
+      - funding
+      - valuation
+      - "term sheet"
+      - SAFE
+      - acquired
+      - acquisition
+      - "strategic partnership"
+      - YC
+      - "Y Combinator"
+      - "demo day"
+      - launch
+      - launched
+      - "Product Hunt"
+      - waitlist
+      - beta
+      - "public beta"
+    filters: "lang:en -is:retweet -is:reply"
+
+  startup_building:
+    label: "Startup Building"
+    keywords:
+      - "#buildinpublic"
+      - "#indiehackers"
+      - "#SaaS"
+      - "#NoCode"
+      - shipped
+      - shipping
+      - launching
+      - launch
+      - MVP
+      - prototype
+      - iteration
+      - pivot
+      - "design partner"
+      - "early users"
+      - "user interviews"
+      - "customer discovery"
+      - "product-market fit"
+      - PMF
+      - onboarding
+      - retention
+      - churn
+      - pricing
+      - GTM
+      - "go-to-market"
+      - "cold outbound"
+      - growth
+    filters: "lang:en -is:retweet -is:reply"
