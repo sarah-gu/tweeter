@@ -1,0 +1,26 @@
+# One firm/org name per line. Used for queries and story clustering.
+OpenAI
+Anthropic
+Google DeepMind
+Meta AI
+Mistral
+Cohere
+Stability AI
+Midjourney
+Hugging Face
+Perplexity
+Character AI
+Inflection
+Adept
+Runway
+Pika
+Cursor
+Replit
+Vercel
+Databricks
+Anyscale
+Modal
+Together AI
+Groq
+Cerebras
+Scale AI

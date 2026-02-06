@@ -1,10 +1,15 @@
-name: Daily Finance Digest
+name: Daily Digest
 
 on:
   schedule:
     # Every day at 22:00 UTC (after US market close)
     - cron: "0 22 * * *"
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      profile:
+        description: "Profile to run (finance, startup, or all)"
+        required: false
+        default: "all"
 
 permissions:
   contents: read
@@ -12,6 +17,10 @@ permissions:
 jobs:
   digest:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        profile: [finance, startup]
 
     steps:
       - name: Checkout
@@ -24,20 +33,22 @@ jobs:
           cache: pip
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: |
+          pip install -r requirements.txt
+          pip install -e .
 
-      - name: Run pipeline
+      - name: Run pipeline (${{ matrix.profile }})
         env:
           X_BEARER_TOKEN: ${{ secrets.X_BEARER_TOKEN }}
           LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
           LLM_PROVIDER: openai
           LLM_MODEL: gpt-4o-mini
-        run: python -m finxnews run
+        run: python -m finxnews run --profile ${{ matrix.profile }}
 
       - name: Upload newsletter artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: newsletter-${{ github.run_id }}
-          path: out/newsletter.md
+          name: newsletter-${{ matrix.profile }}-${{ github.run_id }}
+          path: out/${{ matrix.profile }}/newsletter-*.md
           retention-days: 30

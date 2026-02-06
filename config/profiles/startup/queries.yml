@@ -1,0 +1,73 @@
+# ──────────────────────────────────────────────
+# AI Startup query groups for X Recent Search
+# Each group becomes a section in the newsletter.
+# ──────────────────────────────────────────────
+
+groups:
+  # ── AI models & research ────────────────────
+  ai_models:
+    label: "AI Models & Research"
+    keywords:
+      - GPT
+      - Claude
+      - Gemini
+      - Llama
+      - open source model
+      - foundation model
+      - fine-tuning
+      - RLHF
+      - transformer
+      - diffusion
+      - multimodal
+      - benchmark
+      - SOTA
+      - AGI
+    filters: "lang:en -is:retweet"
+
+  # ── AI startup funding & launches ───────────
+  ai_funding:
+    label: "AI Startup Funding & Launches"
+    firms_file: "startup_firms.txt"
+    keywords:
+      - raises
+      - seed round
+      - Series A
+      - Series B
+      - Series C
+      - funding
+      - valuation
+      - unicorn
+      - acquires
+      - acquisition
+      - launch
+      - launches
+      - YC
+      - demo day
+      - pivot
+    filters: "lang:en -is:retweet"
+
+  # ── AI infra & tools ───────────────────────
+  ai_infra:
+    label: "AI Infra & Developer Tools"
+    keywords:
+      - GPU
+      - inference
+      - training cluster
+      - vector database
+      - RAG
+      - embeddings
+      - AI agent
+      - AI agents
+      - LLM ops
+      - MLOps
+      - CUDA
+      - TPU
+      - H100
+      - B200
+    filters: "lang:en -is:retweet"
+
+  # ── Curated accounts (high-signal) ──────────
+  curated_accounts:
+    label: "Curated Accounts"
+    accounts_file: "curated_accounts.txt"
+    filters: "lang:en -is:retweet"

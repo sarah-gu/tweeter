@@ -30,14 +30,15 @@ def load_queries(queries_path: Path) -> dict[str, str]:
 
     Each group may reference:
     - ``keywords``: list of search terms
-    - ``firms_file``: path to a firm-name file (relative to project root)
-    - ``accounts_file``: path to an accounts file
+    - ``firms_file``: path to a firm-name file (relative to the profile dir)
+    - ``accounts_file``: path to an accounts file (relative to the profile dir)
     - ``filters``: raw filter suffix (e.g. ``lang:en -is:retweet``)
     """
     with open(queries_path) as fh:
         cfg: dict[str, Any] = yaml.safe_load(fh)
 
-    project_root = queries_path.resolve().parent.parent  # config/ -> project root
+    # File references inside queries.yml are relative to its own directory
+    base_dir = queries_path.resolve().parent
     groups: dict[str, Any] = cfg.get("groups", {})
     built: dict[str, str] = {}
 
@@ -53,7 +54,7 @@ def load_queries(queries_path: Path) -> dict[str, str]:
         # Firms file → OR-joined, quoted when multi-word
         firms_file: str | None = group.get("firms_file")
         if firms_file:
-            firms = _load_lines(project_root / firms_file)
+            firms = _load_lines(base_dir / firms_file)
             if firms:
                 firm_clause = " OR ".join(f'"{f}"' if " " in f else f for f in firms)
                 parts.append(f"({firm_clause})")
@@ -61,7 +62,7 @@ def load_queries(queries_path: Path) -> dict[str, str]:
         # Accounts file → (from:a OR from:b …)
         accounts_file: str | None = group.get("accounts_file")
         if accounts_file:
-            accounts = _load_lines(project_root / accounts_file)
+            accounts = _load_lines(base_dir / accounts_file)
             if accounts:
                 acct_clause = " OR ".join(f"from:{a}" for a in accounts)
                 parts.append(f"({acct_clause})")

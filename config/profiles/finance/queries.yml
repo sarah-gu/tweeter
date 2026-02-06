@@ -32,7 +32,7 @@ groups:
   # ── Finance firm big moves ──────────────────
   firm_moves:
     label: "Finance Firm Moves"
-    firms_file: "config/finance_firms.txt"
+    firms_file: "finance_firms.txt"
     keywords:
       - stake
       - acquires
@@ -72,5 +72,5 @@ groups:
   # ── Curated accounts (high-signal) ──────────
   curated_accounts:
     label: "Curated Accounts"
-    accounts_file: "config/curated_accounts.txt"
+    accounts_file: "curated_accounts.txt"
     filters: "lang:en -is:retweet"

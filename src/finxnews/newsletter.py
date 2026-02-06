@@ -26,14 +26,16 @@ def _tweet_link(username: str, tweet_id: str) -> str:
 def render(
     clusters: list[StoryCluster],
     daily_tldr: str,
+    profile: str = "",
     query_summary: str = "",
 ) -> str:
     """Return a full Markdown newsletter string."""
     now = datetime.now(UTC).strftime("%Y-%m-%d %H:%M UTC")
+    title = profile.title() if profile else "Finance"
     parts: list[str] = []
 
     # ── Header ──────────────────────────────────────────────────────────
-    parts.append(f"# Finance Digest — {now}\n")
+    parts.append(f"# {title} Digest — {now}\n")
     if query_summary:
         parts.append(f"_Coverage: {query_summary}_\n")
 
@@ -84,12 +86,18 @@ def write_newsletter(
     clusters: list[StoryCluster],
     daily_tldr: str,
     output_dir: Path,
+    profile: str = "",
     query_summary: str = "",
 ) -> Path:
-    """Render and write ``newsletter.md`` to *output_dir*."""
+    """Render and write a timestamped newsletter to *output_dir*.
+
+    Output path: ``<output_dir>/newsletter-YYYYmmdd-HHMMSSZ.md``
+    """
     output_dir.mkdir(parents=True, exist_ok=True)
-    md = render(clusters, daily_tldr, query_summary)
-    out_path = output_dir / "newsletter.md"
+    md = render(clusters, daily_tldr, profile=profile, query_summary=query_summary)
+    ts = datetime.now(UTC).strftime("%Y%m%d-%H%M%SZ")
+    filename = f"newsletter-{ts}.md"
+    out_path = output_dir / filename
     out_path.write_text(md, encoding="utf-8")
     logger.info("Wrote newsletter to %s (%d chars)", out_path, len(md))
     return out_path
