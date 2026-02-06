@@ -21,11 +21,31 @@ LLM_PROVIDER: str = os.getenv("LLM_PROVIDER", "openai")
 LLM_API_KEY: str = os.getenv("LLM_API_KEY", "")
 LLM_MODEL: str = os.getenv("LLM_MODEL", "gpt-4o-mini")
 
+# ── Email (SMTP / Gmail) ──────────────────────────────────────────────────
+SMTP_HOST: str = os.getenv("SMTP_HOST", "smtp.gmail.com")
+SMTP_PORT: int = int(os.getenv("SMTP_PORT", "587"))
+SMTP_USERNAME: str = os.getenv("SMTP_USERNAME", "")
+SMTP_PASSWORD: str = os.getenv("SMTP_PASSWORD", "")
+_EMAIL_TO_RAW: str = os.getenv("EMAIL_TO", "")
+EMAIL_TO: list[str] = [
+    addr.strip() for addr in _EMAIL_TO_RAW.split(",") if addr.strip()
+]
+
 # ── Profile defaults (overridden at runtime by CLI) ───────────────────────
 DEFAULT_PROFILE: str = os.getenv("FINXNEWS_PROFILE", "finance")
 PROFILES_DIR: Path = PROJECT_ROOT / "config" / "profiles"
 OUTPUT_BASE: Path = Path(os.getenv("FINXNEWS_OUTPUT_DIR", str(PROJECT_ROOT / "out")))
 DB_BASE: Path = Path(os.getenv("FINXNEWS_DB_DIR", str(PROJECT_ROOT / "var")))
+
+
+def email_enabled() -> bool:
+    """Return True if all required SMTP env vars are set."""
+    return bool(SMTP_USERNAME and SMTP_PASSWORD and EMAIL_TO)
+
+
+def email_recipients() -> list[str]:
+    """Return the parsed list of recipient addresses."""
+    return EMAIL_TO
 
 
 def profile_paths(profile: str) -> dict[str, Path]:

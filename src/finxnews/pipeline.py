@@ -1,13 +1,15 @@
-"""Pipeline orchestration — wires fetch → dedupe → rank → cluster → summarise → render."""
+"""Pipeline orchestration — wires fetch → dedupe → rank → cluster → summarise → render → email."""
 
 from __future__ import annotations
 
 import logging
 import sys
+from datetime import UTC, datetime
 
 from finxnews import config
 from finxnews.cluster import cluster_tweets
 from finxnews.dedupe import dedupe
+from finxnews.emailer import send_newsletter
 from finxnews.llm import LLMSummarizer
 from finxnews.models import TweetItem
 from finxnews.newsletter import write_newsletter
@@ -103,5 +105,28 @@ def run_pipeline(profile: str = "finance", dry_run: bool = False) -> None:
         profile=profile,
         query_summary=query_summary,
     )
+
+    # ── 9. Email newsletter ───────────────────────────────────────────
+    if config.email_enabled():
+        now = datetime.now(UTC).strftime("%Y-%m-%d %H:%M UTC")
+        subject = f"TWEETER {profile.upper()} DIGEST — {now}"
+        body = out_path.read_text(encoding="utf-8")
+        try:
+            send_newsletter(
+                smtp_host=config.SMTP_HOST,
+                smtp_port=config.SMTP_PORT,
+                username=config.SMTP_USERNAME,
+                password=config.SMTP_PASSWORD,
+                to_addrs=config.EMAIL_TO,
+                subject=subject,
+                body_text=body,
+            )
+        except Exception:
+            logger.exception("Failed to send newsletter email")
+    else:
+        logger.info(
+            "Email not configured — skipping send. "
+            "Set SMTP_USERNAME, SMTP_PASSWORD, EMAIL_TO to enable."
+        )
 
     logger.info("=== finxnews pipeline done [profile=%s] — %s ===", profile, out_path)
